@@ -14,3 +14,8 @@ Connection :
 ```py
 bot.connect()
 ```
+Envoyer un message :
+```py
+message = message.Message("Username", "Object", "Message")
+bot.send(message)
+```
