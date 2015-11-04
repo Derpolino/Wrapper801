@@ -9,6 +9,7 @@ class wrapper:
     def connect(self):
         if(self.connected == True):
             Logger.error("You are already connected. Please start another instance.")
+            return
 
         key = getKey(self.connected, self.JSESSIONID, "http://atelier801.com")
         self.JSESSIONID = key.JSESSIONID
@@ -40,3 +41,24 @@ class wrapper:
                 Logger.error("Connection error: " + res)
         else:
             Logger.error("You must be connected in order to disconnect.")
+    def post(self,message):
+        #Todo: finish this
+        #not tested !
+        if(message.type==0):
+            if(self.connected == True):
+                key = getKey(self.connected, self.JSESSIONID, "http://atelier801.com")
+                self.JSESSIONID = key.JSESSIONID
+                data = {
+                    "destinataire": message.to,
+                    "objet": message.object,
+                    "message": message.message,
+                    key.key1: key.key2
+                }
+                cookies = {"JSESSIONID" : self.JSESSIONID}
+                res = http.post("http://atelier801.com/new-dialog","http://atelier801.com/create-dialog", cookies, data)
+                if (res.text[:14] == '{"redirection"'):
+                    Logger.info("Message sent")
+                else:
+                    Logger.error("Error while sending the message. Error : " + res.text)
+            else:
+                Logger.error("You must be connected to send an mp.")
