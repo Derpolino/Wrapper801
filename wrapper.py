@@ -46,7 +46,7 @@ class wrapper:
         #not tested !
         if(message.type==0):
             if(self.connected == True):
-                key = getKey(self.connected, self.JSESSIONID, "http://atelier801.com")
+                key = getKey(self.connected, self.JSESSIONID, "http://atelier801.com/new-dialog")
                 self.JSESSIONID = key.JSESSIONID
                 data = {
                     "destinataire": message.to,
