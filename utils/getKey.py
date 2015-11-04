@@ -1,23 +1,22 @@
-from a801py import requests
+import requests
+from utils import http
 import re
 
 class getKey():
-    def __init__(self, connected, JSESSIONID, url):
-        if (connected == 1):
-            cookies = {
-                "JSESSIONID": JSESSIONID
-            }
+    def __init__(self, connected, session_id, url):
+        if (connected == True):
+            cookies = { "JSESSIONID": session_id }
         else:
             cookies = {}
 
-        r = requests.get(url, cookies=cookies)
-        matches = re.search('<input type="hidden" name="(.*?)" value="(.*?)">', r.text)
+        res = http.get(url, cookies=cookies)
+        matches = re.search('<input type="hidden" name="(.*?)" value="(.*?)">', res)
 
-        if (connected == 0):
+        if (connected == False):
             self.key1 = matches.group(1)
             self.key2 = matches.group(2)
             self.JSESSIONID = r.cookies['JSESSIONID']
         else:
             self.key1 = matches.group(1)
             self.key2 = matches.group(2)
-            self.JSESSIONID = JSESSIONID
+            self.JSESSIONID = session_id

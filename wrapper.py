@@ -4,9 +4,12 @@ class wrapper:
     def __init__(self, username, password):
         self.username = username
         self.password = password
-        self.connected = 0
+        self.connected = False
         self.JSESSIONID = "X"
     def connect(self):
+        if(self.connected == True):
+            Logger.error("You are already connected. Please start another instance.")
+
         key = getKey(self.connected, self.JSESSIONID, "http://atelier801.com")
         self.JSESSIONID = key.JSESSIONID
         data = {
@@ -16,25 +19,24 @@ class wrapper:
             key.key1: key.key2
         }
         cookies = {"JSESSIONID" : self.JSESSIONID}
-        connect = http()
-        connect.post("http://atelier801.com/identification","http://atelier801.com/", cookies, data)
-        if (connect.result == '{"redirection":"http://atelier801.com/"}'):
-            print('[BOT] CONNECTED !')
-            self.connected = 1
+        res = http.post("http://atelier801.com/identification","http://atelier801.com/", cookies, data)
+        if (res == '{"redirection":"http://atelier801.com/"}'):
+            Logger.info("Bot connected.")
+            self.connected = True
         else:
-            print('[BOT] ERROR WITH CONNECTION ! ERROR : ' + connect.result)
+            Logger.error("Connection error: " + res)
 
     def disconnect(self):
-        if(self.connected == 1):
+        if(self.connected == True):
             key = getKey(self.connected, self.JSESSIONID, "http://atelier801.com")
             self.JSESSIONID = key.JSESSIONID
             data = {key.key1: key.key2}
             cookies = {"JSESSIONID" : self.JSESSIONID}
-            connect = http()
-            connect.post("http://atelier801.com/deconnexion","http://atelier801.com/", cookies, data)
-            if (connect.result == '{"redirection":"http://atelier801.com/"}'):
-                print('[BOT] DISCONNECTED !')
+
+            res = http.post("http://atelier801.com/deconnexion","http://atelier801.com/", cookies, data)
+            if (res == '{"redirection":"http://atelier801.com/"}'):
+                Logger.info("Bot disconnected.")
             else:
-                print('[BOT] ERROR WITH DECONNECTION ! ERROR : ' + connect.result)
+                Logger.error("Connection error: " + res)
         else:
-            print('[BOT] ERROR : YOU ARE NOT CONNECTED')
+            Logger.error("You must be connected in order to disconnect.")
