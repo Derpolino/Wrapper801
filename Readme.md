@@ -7,10 +7,10 @@ Wrapper801 est un module Python permettant à tous de créer son propre bot/serv
 ## Utilisation
 Initialisation :
 ```py
-from a801py import *
+from wrapper801 import *
 bot = wrapper("Username", "Password")
 ```
-Connection :
+Connexion :
 ```py
 bot.connect()
 ```
