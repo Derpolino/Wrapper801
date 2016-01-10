@@ -43,7 +43,7 @@ class wrapper:
             Logger.error("You must be connected in order to disconnect.")
     def post(self,message):
         #Todo: finish this
-        #not tested !
+        #not tested !!
         if(message.type==0):
             if(self.connected == True):
                 key = getKey(self.connected, self.JSESSIONID, "http://atelier801.com/new-dialog")
