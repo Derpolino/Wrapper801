@@ -20,3 +20,4 @@ Envoyer un message :
 message = inbox.Message("Username", "Object", "Message")
 bot.send(message)
 ```
+PROJET EN PAUSE !
