@@ -1,4 +1,4 @@
-from message import *
+from inbox import *
 from games import *
 from profile import *
 from thread import *

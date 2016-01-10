@@ -1,3 +1,4 @@
+PROJET EN PAUSE !
 # Wrapper801
 ## Introduction
 Wrapper801 est un module Python permettant à tous de créer son propre bot/service utilisant le forum d'[atelier801].
@@ -16,6 +17,6 @@ bot.connect()
 ```
 Envoyer un message :
 ```py
-message = message.Message("Username", "Object", "Message")
+message = inbox.Message("Username", "Object", "Message")
 bot.send(message)
 ```
